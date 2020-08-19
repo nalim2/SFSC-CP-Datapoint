@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package de.unistuttgart.isw.sfsc.example.services.messages;
+
+option java_multiple_files = true;
+
+
+message SFSCDatapointMetainformation {
+    string connectionString = 1;
+    string variableAdress = 2;
+    string name = 3;
+    string type = 4;
+}
+
+message SFSCDatapointUpdate {
+    int64 timestamp = 1;
+    string value = 2;
+}
