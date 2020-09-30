@@ -4,6 +4,7 @@ import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import de.unistuttgart.isw.sfsc.adapter.configuration.AdapterConfiguration;
 import de.unistuttgart.isw.sfsc.config.Constants;
+import de.unistuttgart.isw.sfsc.config.EnvironmentConstants;
 import de.unistuttgart.isw.sfsc.example.services.messages.PLC4XMonitorUpdate;
 import de.unistuttgart.isw.sfsc.example.services.messages.PLC4XMonitorUpdate.Timestamp;
 import de.unistuttgart.isw.sfsc.example.services.messages.PLC4XMonitoringRequest;
@@ -36,6 +37,14 @@ public class DatapointService {
     static ExecutorService threadPoolExecutor = Executors.newFixedThreadPool(4);
 
     public static void main(String[] args) {
+        try {
+            Thread.sleep(6000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Map<String, String> envVar = System.getenv();
+        if(envVar.containsKey(EnvironmentConstants.EXTERNEL_CORE_IP)) Constants.CORE_ADDRESS = envVar.get(EnvironmentConstants.EXTERNEL_CORE_IP);
+        if(envVar.containsKey(EnvironmentConstants.EXTERNEL_CORE_PORT)) Constants.CORE_PORT = Integer.parseInt(envVar.get(EnvironmentConstants.EXTERNEL_CORE_PORT));
         bootstrapConfiguration1 = new AdapterConfiguration().setCoreHost(Constants.CORE_ADDRESS).setCorePubTcpPort(Constants.CORE_PORT);
         for (int threadCounter = 0; threadCounter < 10; threadCounter++){
             final  int finalThreadCounter = threadCounter;
@@ -66,7 +75,6 @@ public class DatapointService {
                         .build();
                 publisher.publish(updateMsg);
                 Thread.sleep(1000);
-
             }
 
             publisher.close();
