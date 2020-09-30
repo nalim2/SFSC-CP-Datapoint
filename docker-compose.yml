@@ -20,3 +20,12 @@ services:
 
       - BACKEND_HOST=core1
       - HAZELCAST_PORT=5701
+
+  sample-datapoint-service:
+    image: "nalim2/sfsc-sample-datapoint:linux-x86"
+    build: .
+    environment:
+      - EXTERNEL_CORE_IP=core1
+      - EXTERNEL_CORE_PORT=1251
+    links:
+      - core1
