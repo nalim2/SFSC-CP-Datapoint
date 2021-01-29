@@ -26,7 +26,9 @@ public class DatapointCollector {
     public static void main(String[] args){
         try {
             SfscServiceApi serverSfscServiceApi = SfscServiceApiFactory.getSfscServiceApi(adapterConfiguration);
+            Thread.sleep(20000);
 
+            int i = 1;
             serverSfscServiceApi.addRegistryStoreEventListener(sfscServiceDescriptorStoreEvent -> {
                 if(sfscServiceDescriptorStoreEvent.getData().getServiceName().equals(ServiceName) &&
                         sfscServiceDescriptorStoreEvent.getStoreEventType() == StoreEvent.StoreEventType.CREATE){

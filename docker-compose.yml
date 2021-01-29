@@ -2,7 +2,7 @@ version: "3"
 services:
   core1:
     container_name: core1
-    image: "nalim2/sfsc-core:latest"
+    image: "nalim2/sfsc-core:linux-x86-experimental"
     ports:
       - "1250:1250"
       - "1251:1251"
@@ -22,7 +22,7 @@ services:
       - HAZELCAST_PORT=5701
 
   sample-datapoint-service:
-    image: "nalim2/sfsc-sample-datapoint:linux-x86"
+    image: "nalim2/sfsc-sample-datapoint:linux-x86-experimental"
     build: .
     environment:
       - EXTERNEL_CORE_IP=core1
